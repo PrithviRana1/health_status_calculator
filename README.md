@@ -15,7 +15,7 @@ severity score dictionary = {'critical': 1, 'high': 0.8,'moderate': 0.5,'minor':
         --- <br>
         token : 'yourToken'
 4. Open the terminal and create a virtual environment
-5. Run pip install -r requirements.txt in terminal
+5. Activate virtual environment and run pip install -r requirements.txt in terminal
 6. Run calculation.py in terminal
 # How to configure for custom runs
 You can configure the program for custom runs by following the prompts displayed on the terminal after you run the file
