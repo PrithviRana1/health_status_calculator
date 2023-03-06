@@ -22,7 +22,78 @@ severity score dictionary = {'critical': 1, 'high': 0.8,'moderate': 0.5,'minor':
 You can configure the program for custom runs by following the prompts displayed on the terminal after you run the file
 # Sample experiments
 
+### https://github.com/brave/brave-browser
+owner : brave
+repo : brave-browser
 
+
+1.
+base : master
+head : 0.72.x
+health_status = 0.036630036630036625
+
+2.
+base : master
+head = 1.50.x
+health_status = 0
+
+### https://github.com/spring-projects/spring-framework
+owner : spring-projects
+repo : spring-framework
+
+1.
+base : 3.0.x
+head : 3.1.x
+health_status = 0.0007328075213192672
+
+
+2.
+base : main
+head : 5.3.x
+health_status = 0
+
+### https://github.com/hibernate/hibernate-reactive
+owner : hibernate
+repo : hibernate-reactive
+
+1.
+base : 1.0
+head : 1.1
+health_status = 0
+
+
+2.
+base : main
+head : 1.1
+health_status = 0
+
+### https://github.com/fastify/fastify
+owner : fastify
+repo : fastify
+
+1.
+base : 1.x
+head : 2.x
+health_status = 180.0
+
+2.
+base : main
+head : fix-log-test-node-v16
+health_status = 0
+
+### https://github.com/expressjs/express
+owner : expressjs
+repo : express
+
+1.
+base : benchmark
+head : traige
+health_status = 0.15624999999999994
+
+2.
+base : master
+head : develop
+health_status = 0
 
 
 
