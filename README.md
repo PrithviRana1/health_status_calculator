@@ -1,5 +1,5 @@
 # health_status_calculator
-Calculates repo health status by using dependency diff 
+Calculates repo health status based on vulnerabilities and dependencies 
 
 # About
 This project calculates the health status of a repo by making use of the GitHub api <br>
