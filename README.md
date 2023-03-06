@@ -8,11 +8,11 @@ severity score dictionary = {'critical': 1, 'high': 0.8,'moderate': 0.5,'minor':
 
 # How to run
 1. Clone repo and open in IDE of choice
-2. Generate a GitHub personal access token (classic)
+2. Generate a GitHub personal access token (classic) <br>
     Token should atleast have admin:public_key scope
-3. Create a file named access_token.yaml and store your token in it.
-    File should look like this:
-        ---
+3. Create a file named access_token.yaml and store your token in it. <br>
+    File should look like this: <br>
+        --- <br>
         token : 'yourToken'
 4. Open the terminal and create a virtual environment
 5. Run pip install -r requirements.txt in terminal
