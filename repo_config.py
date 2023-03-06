@@ -6,8 +6,13 @@ import yaml
 with open('access_token.yaml', 'r') as file:
     access_token_file = yaml.safe_load(file)
 
+owner = input("Enter repo owner name: ")
+repo = input("Enter repo name: ")
+base = input("Enter name of base branch: ")
+head = input("Enter name of head branch: ")
 
-url = 'https://api.github.com/repos/brave/brave-browser/dependency-graph/compare/master...0.72.x'
+
+url = 'https://api.github.com/repos/{}/{}/dependency-graph/compare/{}...{}'.format(owner, repo, base, head)
 headers = {'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 
            'Authorization': 'Bearer ' + access_token_file['token'] }
 response = requests.get(url, headers=headers)
