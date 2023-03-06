@@ -24,11 +24,14 @@ response = requests.get(url, headers=headers)
 dependency_graph_diff = json.loads(response.text)
 num_of_dependencies = len(dependency_graph_diff)
 
+try:
+    severities = [v["severity"] for dict in dependency_graph_diff 
+                for v in dict["vulnerabilities"]]
+    num_of_vulnerabilities = len(severities)  
+except:
+    print(json.loads(response.text))
 
-severities = [v["severity"] for dict in dependency_graph_diff 
-              for v in dict["vulnerabilities"]]
 
-num_of_vulnerabilities = len(severities)  
 
 #print(json.loads(response.text))
 #print(severities)

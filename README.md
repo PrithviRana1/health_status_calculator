@@ -87,7 +87,7 @@ repo : express
 
 1.
 base : benchmark <br>
-head : traige <br>
+head : triage <br>
 health_status = 0.15624999999999994
 
 2.
