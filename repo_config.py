@@ -25,7 +25,7 @@ class GithubApi:
                 raise TypeError
         except TypeError:
             print("Repo should be a string\n")
-            
+
         try:
             if not isinstance(config["base"], str):
                 raise TypeError
@@ -49,19 +49,20 @@ class GithubApi:
             match = re.match(pattern, config["apiV"])
             if match is None:
                 raise ValueError
-        
+
         except ValueError:
             print("Api version should be of the format yyyy-mm-dd\n")
-        
+
         try:
             pattern = re.compile(r"application/vnd\.github.[a-z]*")
             match = re.match(pattern, config["accept"])
             if match is None:
                 raise ValueError
-        
+
         except ValueError:
-            print("Accept media type should be of the format application/vnd.github+param[+json]\n")
-        
+            print("Accept media type should be of the"
+                  + "format application/vnd.github+param[+json]\n")
+
         return config
 
     def github_connector(self):
