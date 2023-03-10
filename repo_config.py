@@ -1,26 +1,75 @@
 
 import requests
 import json
+import yaml
+import re
 
 
 class GithubApi:
-    def request_params(self):
-        owner = input("Enter repo owner name: ")
-        repo = input("Enter repo name: ")
-        base = input("Enter name of base branch: ")
-        head = input("Enter name of head branch: ")
-        api_version = input("Enter api version: ")
-        accept = input("Enter format of data to be returned: ")
-        token = input("Enter Github personal access token: ")
-        return {'owner': owner, 'repo': repo, 'base': base, 'head': head,
-                'api_version': api_version, 'accept': accept, 'token': token}
+    def config_params(self):
+        f = open("config.yaml", "r")
+        config = yaml.load(f, Loader=yaml.FullLoader)
+        f.close()
+        return config
+
+    def validate(self):
+        config = self.config_params()
+        try:
+            if not isinstance(config["owner"], str):
+                raise TypeError
+        except TypeError:
+            print("Owner should be a string\n")
+
+        try:
+            if not isinstance(config["repo"], str):
+                raise TypeError
+        except TypeError:
+            print("Repo should be a string\n")
+            
+        try:
+            if not isinstance(config["base"], str):
+                raise TypeError
+        except TypeError:
+            print("Base should be a string\n")
+
+        try:
+            if not isinstance(config["head"], str):
+                raise TypeError
+        except TypeError:
+            print("Head should be a string\n")
+
+        try:
+            if not isinstance(config["token"], str):
+                raise TypeError
+        except TypeError:
+            print("Token should be a string\n")
+
+        try:
+            pattern = re.compile(r"^\d{4}-\d{2}-\d{2}$", re.IGNORECASE)
+            match = re.match(pattern, config["apiV"])
+            if match is None:
+                raise ValueError
+        
+        except ValueError:
+            print("Api version should be of the format yyyy-mm-dd\n")
+        
+        try:
+            pattern = re.compile(r"application/vnd\.github.[a-z]*")
+            match = re.match(pattern, config["accept"])
+            if match is None:
+                raise ValueError
+        
+        except ValueError:
+            print("Accept media type should be of the format application/vnd.github+param[+json]\n")
+        
+        return config
 
     def github_connector(self):
-        params = self.request_params()
-        url = 'https://api.github.com/repos/{}/{}/dependency-graph/compare/{}...{}'.format(params['owner'], params['repo'], params['base'], params['head']) # noqa
-        headers = {'Accept': params['accept'],
-                   'X-GitHub-Api-Version': params['api_version'],
-                   'Authorization': 'Bearer ' + params['token']}
+        config = self.validate()
+        url = 'https://api.github.com/repos/{}/{}/dependency-graph/compare/{}...{}'.format(config['owner'], config['repo'], config['base'], config['head']) # noqa
+        headers = {'Accept': config['accept'],
+                   'X-GitHub-Api-Version': config['apiV'],
+                   'Authorization': 'Bearer ' + config['token']}
         self.response = requests.get(url, headers=headers)
 
 

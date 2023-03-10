@@ -1,0 +1,8 @@
+---
+owner: 'brave'
+repo: 'brave-browser'
+base: 'master'
+head: '0.72.x'
+apiV: '2022-11-28'
+accept: 'application/vnd.github+json'
+token: ''
