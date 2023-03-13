@@ -5,7 +5,7 @@ import yaml
 import re
 
 
-class GithubApi:
+class ConfigLoader:
     def config_params(self):
         f = open("config.yaml", "r")
         config = yaml.load(f, Loader=yaml.FullLoader)
@@ -61,12 +61,16 @@ class GithubApi:
 
         except ValueError:
             print("Accept media type should be of the"
-                  + "format application/vnd.github+param[+json]\n")
+                  + " format application/vnd.github+param[+json]\n")
 
         return config
 
+
+class GithubApi:
+    setup = ConfigLoader()
+
     def github_connector(self):
-        config = self.validate()
+        config = self.setup.validate()
         url = 'https://api.github.com/repos/{}/{}/dependency-graph/compare/{}...{}'.format(config['owner'], config['repo'], config['base'], config['head']) # noqa
         headers = {'Accept': config['accept'],
                    'X-GitHub-Api-Version': config['apiV'],
