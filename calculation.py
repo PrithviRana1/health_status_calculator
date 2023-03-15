@@ -1,8 +1,8 @@
-import repo_config
+from repo_config import ForumulaParams
 
 
-class calculation:
-    variables = repo_config.ForumulaParams()
+class calc:
+    variables = ForumulaParams()
     variables.collect()
     # On occasion api returns severities
     # as moderate or low instead of medium and minor
@@ -25,5 +25,5 @@ class calculation:
         return health_status
 
 
-test = calculation()
+test = calc()
 print(test.get_health_status())
