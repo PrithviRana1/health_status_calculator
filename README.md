@@ -16,10 +16,10 @@ severity score dictionary = {'critical': 1, 'high': 0.8,'moderate': 0.5,'minor':
         token : 'yourToken'
 4. Open the terminal and create a virtual environment
 5. Activate virtual environment and run pip install -r requirements.txt in terminal
-6. Run python calculation.py in terminal  <br>
+6. Run python run_calc.py in terminal  <br>
 (Make sure that you are using Python 3)
 # How to configure for custom runs
-You can configure the program for custom runs by following the prompts displayed on the terminal after you run the file
+You can configure the program for custom runs by changing the config file
 # Sample experiments
 
 ### https://github.com/brave/brave-browser
