@@ -25,5 +25,4 @@ class calc:
         return health_status
 
 
-# test = calc()
-# print(test.get_health_status())
+

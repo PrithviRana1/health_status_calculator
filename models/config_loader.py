@@ -1,7 +1,7 @@
 import yaml
 import re
 import os
-
+import logging
 
 class ConfigLoader:
     def config_params(self):
@@ -13,35 +13,47 @@ class ConfigLoader:
 
     def validate(self):
         config = self.config_params()
+
+        # Create and configure logger
+        logging.basicConfig(filename="result.log",
+                            format='%(asctime)s %(message)s',
+                            filemode='w')
+        
+        # Creating an object
+        logger = logging.getLogger()
+        
+        # Setting the threshold of logger to DEBUG
+        logger.setLevel(logging.DEBUG)
+    
         try:
             if not isinstance(config["owner"], str):
                 raise TypeError
         except TypeError:
-            print("Owner should be a string\n")
+            logger.debug("Owner should be a string\n")
 
         try:
             if not isinstance(config["repo"], str):
                 raise TypeError
         except TypeError:
-            print("Repo should be a string\n")
+            logger.debug("Repo should be a string\n")
 
         try:
             if not isinstance(config["base"], str):
                 raise TypeError
         except TypeError:
-            print("Base should be a string\n")
+            logger.debug("Base should be a string\n")
 
         try:
             if not isinstance(config["head"], str):
                 raise TypeError
         except TypeError:
-            print("Head should be a string\n")
+            logger.debug("Head should be a string\n")
 
         try:
             if not isinstance(config["token"], str):
                 raise TypeError
         except TypeError:
-            print("Token should be a string\n")
+            logger.debug("Token should be a string\n")
 
         try:
             pattern = re.compile(r"^\d{4}-\d{2}-\d{2}$", re.IGNORECASE)
@@ -50,7 +62,7 @@ class ConfigLoader:
                 raise ValueError
 
         except ValueError:
-            print("Api version should be of the format yyyy-mm-dd\n")
+            logger.debug("Api version should be of the format yyyy-mm-dd\n")
 
         try:
             pattern = re.compile(r"application/vnd\.github.[a-z]*")
@@ -59,7 +71,7 @@ class ConfigLoader:
                 raise ValueError
 
         except ValueError:
-            print("Accept media type should be of the"
+            logger.debug("Accept media type should be of the"
                   + " format application/vnd.github+param[+json]\n")
 
         return config
