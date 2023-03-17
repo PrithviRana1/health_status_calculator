@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from health_status_core import calculation
+from core import calculation
 
 
 class TestCalc(unittest.TestCase):

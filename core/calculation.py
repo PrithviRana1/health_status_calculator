@@ -1,8 +1,8 @@
-from . import repo_config
+from models import formula_params
 
 
 class calc:
-    variables = repo_config.ForumulaParams()
+    variables = formula_params.ForumulaParams()
     variables.collect()
     # On occasion api returns severities
     # as moderate or low instead of medium and minor

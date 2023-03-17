@@ -1,13 +1,12 @@
-
-import requests
-import json
 import yaml
 import re
+import os
 
 
 class ConfigLoader:
     def config_params(self):
-        f = open("config.yaml", "r")
+        path = os.path.join('config', 'configuration.yaml')
+        f = open(path, "r")
         config = yaml.load(f, Loader=yaml.FullLoader)
         f.close()
         return config
@@ -64,37 +63,3 @@ class ConfigLoader:
                   + " format application/vnd.github+param[+json]\n")
 
         return config
-
-
-class GithubApi:
-    setup = ConfigLoader()
-
-    def github_connector(self):
-        config = self.setup.validate()
-        url = 'https://api.github.com/repos/{}/{}/dependency-graph/compare/{}...{}'.format(config['owner'], config['repo'], config['base'], config['head']) # noqa
-        headers = {'Accept': config['accept'],
-                   'X-GitHub-Api-Version': config['apiV'],
-                   'Authorization': 'Bearer ' + config['token']}
-        self.response = requests.get(url, headers=headers)
-
-
-class ForumulaParams():
-    api = GithubApi()
-    api.github_connector()
-
-    dependency_graph_diff = json.loads(api.response.text)
-
-    def collect(self):
-        self.num_of_dependencies = len(self.dependency_graph_diff)
-        try:
-            self.severities = [v["severity"] for dict in
-                               self.dependency_graph_diff
-                               for v in dict["vulnerabilities"]]
-            self.num_of_vulnerabilities = len(self.severities)
-        except (AttributeError, TypeError):
-            print(self.dependency_graph_diff)
-
-# print(json.loads(response.text))
-# print(severities)
-# print(num_of_vulnerabilities)
-# print(num_of_dependencies)
