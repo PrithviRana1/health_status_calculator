@@ -15,6 +15,8 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
  
 # Logging Result
-logger.debug(test.get_health_status())
+for status in test.all_statuses():
+    logger.debug(status)
+
 
 

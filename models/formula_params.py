@@ -6,12 +6,17 @@ from models import github_api
 
 class ForumulaParams():
     api = github_api.GithubApi()
-    api.github_connector()
+    api.connections()
 
-    dependency_graph_diff = json.loads(api.response.text)
+    dependency_objs = api.response
+    #dependency_graph_diff = json.loads(api.response.text)
 
-    def collect(self):
-        self.num_of_dependencies = len(self.dependency_graph_diff)
+    def all_objs(self):
+        self.response = [self.collect(json.loads(obj.text)) for obj in self.dependency_objs]
+
+
+    def collect(self, obj):
+        num_of_dependencies = len(obj)
 
         # Create and configure logger
         logging.basicConfig(filename="result.log",
@@ -25,12 +30,13 @@ class ForumulaParams():
         logger.setLevel(logging.DEBUG)
 
         try:
-            self.severities = [v["severity"] for dict in
-                               self.dependency_graph_diff
-                               for v in dict["vulnerabilities"]]
-            self.num_of_vulnerabilities = len(self.severities)
+            severities = [v['severity'] for dict in
+                               obj
+                               for v in dict['vulnerabilities']]
+            num_of_vulnerabilities = len(severities)
+            return {'severities' : severities, 'num_of_vulnerabilities' : num_of_vulnerabilities, 'num_of_dependencies' : num_of_dependencies}
         except (AttributeError, TypeError):
-            logger.debug(self.dependency_graph_diff)
+            logger.debug(obj)
 
 # print(json.loads(response.text))
 # print(severities)

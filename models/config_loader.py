@@ -7,13 +7,13 @@ class ConfigLoader:
     def config_params(self):
         path = os.path.join('config', 'configuration.yaml')
         f = open(path, "r")
-        config = yaml.load(f, Loader=yaml.FullLoader)
+        config = list(yaml.safe_load_all(f))
         f.close()
         return config
 
-    def validate(self):
-        config = self.config_params()
-
+    def validate(self, obj):
+        config = obj
+        
         # Create and configure logger
         logging.basicConfig(filename="result.log",
                             format='%(asctime)s %(message)s',
@@ -73,5 +73,12 @@ class ConfigLoader:
         except ValueError:
             logger.debug("Accept media type should be of the"
                   + " format application/vnd.github+param[+json]\n")
+        
 
-        return config
+    def config_objects(self):
+        objects = self.config_params()
+        for obj in objects:
+            self.validate(obj)
+        return objects
+
+
