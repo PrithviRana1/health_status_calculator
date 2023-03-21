@@ -3,6 +3,7 @@ import re
 import os
 import logging
 
+
 class ConfigLoader:
     def config_params(self):
         path = os.path.join('config', 'configuration.yaml')
@@ -13,18 +14,18 @@ class ConfigLoader:
 
     def validate(self, obj):
         config = obj
-        
+
         # Create and configure logger
         logging.basicConfig(filename="result.log",
                             format='%(asctime)s %(message)s',
                             filemode='w')
-        
+
         # Creating an object
         logger = logging.getLogger()
-        
+
         # Setting the threshold of logger to DEBUG
         logger.setLevel(logging.DEBUG)
-    
+
         try:
             if not isinstance(config["owner"], str):
                 raise TypeError
@@ -72,13 +73,10 @@ class ConfigLoader:
 
         except ValueError:
             logger.debug("Accept media type should be of the"
-                  + " format application/vnd.github+param[+json]\n")
-        
+                         + " format application/vnd.github+param[+json]\n")
 
     def config_objects(self):
         objects = self.config_params()
         for obj in objects:
             self.validate(obj)
         return objects
-
-

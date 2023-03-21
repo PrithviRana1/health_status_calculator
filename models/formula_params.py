@@ -9,11 +9,10 @@ class ForumulaParams():
     api.connections()
 
     dependency_objs = api.response
-    #dependency_graph_diff = json.loads(api.response.text)
 
     def all_objs(self):
-        self.response = [self.collect(json.loads(obj.text)) for obj in self.dependency_objs]
-
+        self.response = [self.collect(json.loads(obj.text))
+                         for obj in self.dependency_objs]
 
     def collect(self, obj):
         num_of_dependencies = len(obj)
@@ -22,19 +21,21 @@ class ForumulaParams():
         logging.basicConfig(filename="result.log",
                             format='%(asctime)s %(message)s',
                             filemode='w')
-        
+
         # Creating an object
         logger = logging.getLogger()
-        
+
         # Setting the threshold of logger to DEBUG
         logger.setLevel(logging.DEBUG)
 
         try:
             severities = [v['severity'] for dict in
-                               obj
-                               for v in dict['vulnerabilities']]
+                          obj
+                          for v in dict['vulnerabilities']]
             num_of_vulnerabilities = len(severities)
-            return {'severities' : severities, 'num_of_vulnerabilities' : num_of_vulnerabilities, 'num_of_dependencies' : num_of_dependencies}
+            return {'severities': severities,
+                    'num_of_vulnerabilities': num_of_vulnerabilities,
+                    'num_of_dependencies': num_of_dependencies}
         except (AttributeError, TypeError):
             logger.debug(obj)
 
