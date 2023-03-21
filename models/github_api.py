@@ -16,4 +16,3 @@ class GithubApi:
     def connections(self):
         objects = self.setup.config_objects()
         self.response = [self.github_connector(obj) for obj in objects]
-
