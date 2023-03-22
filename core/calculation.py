@@ -9,7 +9,7 @@ class Calc:
     # Added those to the dict with the score
     # of the severity that they seem most closely associated to
 
-    def get_severity_score(self):
+    def get_severity_scores(self):
         severity_dict = {'critical': 1, 'high': 0.8, 'moderate': 0.5,
                          'medium': 0.5, 'minor': 0.1, 'low': 0.1}
 
@@ -26,7 +26,7 @@ class Calc:
         return health_status
 
     def all_statuses(self):
-        self.get_severity_score()
+        self.get_severity_scores()
         statuses = ['N/A' if obj is None
                     else self.get_health_status(obj, severity_score)
                     for obj, severity_score in
