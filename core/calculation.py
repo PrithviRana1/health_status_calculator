@@ -1,7 +1,7 @@
 from models import formula_params
 
 
-class calc:
+class Calc:
     variables = formula_params.ForumulaParams()
     variables.all_objs()
     # On occasion api returns severities

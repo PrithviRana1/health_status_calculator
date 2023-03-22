@@ -20,6 +20,7 @@ jobs:
           poetry run flake8 .
       - name: Test with unittest
         run : |
-          python -m unittest discover tests
+          poetry run unittest discover tests -v
+
 
       

@@ -1,7 +1,7 @@
 from core import calculation
 import logging
 
-test = calculation.calc()
+test = calculation.Calc()
 
 # Create and configure logger
 logging.basicConfig(filename="result.log",
