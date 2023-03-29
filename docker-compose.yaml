@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  app:
+    build: .
+    ports:
+      - 8000:5000
+    volumes:
+      - .:/health_status_calculator
+    command: python /health_status_calculator/run_calc.py
+    depends_on:
+      - database
+    networks:
+      - mynetwork
+  database:
+    image: postgres
+    ports: 
+      - 5432:5432
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+
+volumes:
+  dbdata:  

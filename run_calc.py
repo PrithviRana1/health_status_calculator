@@ -1,7 +1,9 @@
 from core import calculation
+from database import loadDB
 import logging
 
 test = calculation.Calc()
+db = loadDB.DB()
 
 # Create and configure logger
 logging.basicConfig(filename="result.log",
@@ -16,4 +18,8 @@ logger.setLevel(logging.DEBUG)
 
 # Logging Result
 for status in test.all_statuses():
-    logger.debug(status)
+    logger.debug(status[0])
+    config = status[1]
+    logger.debug(config["owner"] + " " +
+                 config["repo"] + " " + config["base"] + config["head"])
+    db.load(status)

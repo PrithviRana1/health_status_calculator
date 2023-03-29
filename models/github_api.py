@@ -1,5 +1,6 @@
 import requests
 from models import config_loader
+import datetime
 
 
 class GithubApi:
@@ -11,7 +12,8 @@ class GithubApi:
         headers = {'Accept': config['accept'],
                    'X-GitHub-Api-Version': config['apiV'],
                    'Authorization': 'Bearer ' + config['token']}
-        return requests.get(url, headers=headers)
+        config['datetime'] = datetime.datetime.now()
+        return requests.get(url, headers=headers), config
 
     def connections(self):
         objects = self.setup.config_objects()

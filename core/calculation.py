@@ -20,7 +20,7 @@ class Calc:
     def get_health_status(self, obj, severity_score):
         health_status = (obj['num_of_dependencies'] /
                          (obj['num_of_vulnerabilities'] *
-                          (sum(severity_score)))
+                         (sum(severity_score)))
                          if obj['num_of_vulnerabilities'] > 0 else 0)
 
         return health_status
@@ -28,8 +28,9 @@ class Calc:
     def all_statuses(self):
         self.get_severity_scores()
         statuses = ['N/A' if obj is None
-                    else self.get_health_status(obj, severity_score)
-                    for obj, severity_score in
-                    zip(self.variables.response, self.severity_scores)]
+                    else (self.get_health_status(obj, severity_score), info)
+                    for obj, severity_score, info in
+                    zip(self.variables.response,
+                        self.severity_scores, self.variables.repo_info)]
 
         return statuses

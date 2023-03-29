@@ -11,8 +11,10 @@ class ForumulaParams():
     dependency_objs = api.response
 
     def all_objs(self):
-        self.response = [self.collect(json.loads(obj.text))
+        self.response = [self.collect(json.loads(obj[0].text))
                          for obj in self.dependency_objs]
+
+        self.repo_info = [obj[1] for obj in self.dependency_objs]
 
     def collect(self, obj):
         num_of_dependencies = len(obj)
