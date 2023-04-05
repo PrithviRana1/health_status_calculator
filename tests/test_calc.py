@@ -52,9 +52,11 @@ class TestCalc(unittest.TestCase):
                            {'severities': ['low', 'critical'],
                            'num_of_vulnerabilities':2,
                             'num_of_dependencies': 2}]
+
+        mock_v.repo_info = [None, None]
         calc = calculation.Calc()
         calc.severity_scores = [[1], [0.1, 1]]
-        test_statuses = ['dummy score', 'dummy score']
+        test_statuses = [('dummy score', None), ('dummy score', None)]
         calculated_all_statuses = calc.all_statuses()
         self.assertEqual(calculated_all_statuses, test_statuses)
 
@@ -63,14 +65,16 @@ class TestCalc(unittest.TestCase):
                            'num_of_vulnerabilities':1,
                             'num_of_dependencies': 2}
                            ]
+        mock_v.repo_info = [None]
         calc = calculation.Calc()
         calc.severity_scores = [[1]]
-        test_statuses = ['dummy score']
+        test_statuses = [('dummy score', None)]
         calculated_all_statuses = calc.all_statuses()
         self.assertEqual(calculated_all_statuses, test_statuses)
 
         # 0
         mock_v.response = []
+        mock_v.repo_info = []
         calc = calculation.Calc()
         calc.severity_scores = ['N/A']
         test_statuses = []
@@ -79,6 +83,7 @@ class TestCalc(unittest.TestCase):
 
         # None object (bad message request)
         mock_v.response = [None]
+        mock_v.repo_info = [None]
         calc = calculation.Calc()
         calc.severity_scores = ['N/A']
         test_statuses = ['N/A']
