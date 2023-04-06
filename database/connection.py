@@ -1,5 +1,6 @@
 import psycopg2
 
+
 class Connect:
     conn = psycopg2.connect(
         database="healthdb",
