@@ -3,10 +3,9 @@ services:
   app:
     build: .
     ports:
-      - '8000:5000'
+      - '8000:8000'
     volumes:
       - .:/health_status_calculator
-    command: python /health_status_calculator/run_calc.py
     depends_on:
       - database
     networks:

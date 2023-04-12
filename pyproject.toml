@@ -21,6 +21,7 @@ requests = "2.28.2"
 yarg = "0.1.9"
 testcontainers-postgres = "^0.0.1rc1"
 psycopg2 = "^2.9.6"
+fastapi = {extras = ["all"], version = "^0.95.0"}
 
 
 [build-system]
