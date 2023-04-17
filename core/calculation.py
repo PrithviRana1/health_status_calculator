@@ -4,7 +4,7 @@ from models import formula_params
 class Calc:
     def __init__(self, data_list):
         self.variables = formula_params.ForumulaParams(data_list)
-    
+
     def get_variables_all_objs(self):
         self.variables.all_objs()
     # On occasion api returns severities
