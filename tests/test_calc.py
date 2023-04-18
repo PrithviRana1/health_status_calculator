@@ -8,11 +8,11 @@ class TestCalc(unittest.TestCase):
     def test_get_severity_scores(self):
         calc = calculation.Calc([])
         calc.variables.response = [{'severities': ['critical'],
-                           'num_of_vulnerabilities':1,
-                            'num_of_dependencies': 2},
-                           {'severities': ['low'],
-                           'num_of_vulnerabilities':1,
-                            'num_of_dependencies': 2}]
+                                    'num_of_vulnerabilities':1,
+                                    'num_of_dependencies': 2},
+                                   {'severities': ['low'],
+                                    'num_of_vulnerabilities':1,
+                                    'num_of_dependencies': 2}]
         expected_severity_score = [[1], [0.1]]
         calc.get_severity_scores()
         calculated_severity_scores = calc.severity_scores
@@ -33,7 +33,7 @@ class TestCalc(unittest.TestCase):
                   'num_of_vulnerabilities': 1,
                   'num_of_dependencies': 0}
         mock_s = [1]
-        
+
         expected_health_status_0 = 0
         calculated_health_status = calc.get_health_status(mock_o, mock_s)
         self.assertEqual(calculated_health_status, expected_health_status_0)
@@ -47,11 +47,11 @@ class TestCalc(unittest.TestCase):
         # More than 1
         calc = calculation.Calc([])
         calc.variables.response = [{'severities': ['critical'],
-                           'num_of_vulnerabilities':1,
-                            'num_of_dependencies': 2},
-                           {'severities': ['low', 'critical'],
-                           'num_of_vulnerabilities':2,
-                            'num_of_dependencies': 2}]
+                                    'num_of_vulnerabilities':1,
+                                    'num_of_dependencies': 2},
+                                   {'severities': ['low', 'critical'],
+                                    'num_of_vulnerabilities':2,
+                                    'num_of_dependencies': 2}]
 
         calc.variables.repo_info = [None, None]
         calc.severity_scores = [[1], [0.1, 1]]
@@ -62,9 +62,9 @@ class TestCalc(unittest.TestCase):
         # 1
         calc = calculation.Calc([])
         calc.variables.response = [{'severities': ['critical'],
-                           'num_of_vulnerabilities':1,
-                            'num_of_dependencies': 2}
-                           ]
+                                    'num_of_vulnerabilities':1,
+                                    'num_of_dependencies': 2}]
+
         calc.variables.repo_info = [None]
         calc.severity_scores = [[1]]
         expected_statuses = [('dummy score', None)]
@@ -75,7 +75,7 @@ class TestCalc(unittest.TestCase):
         calc = calculation.Calc([])
         calc.variables.response = []
         calc.variables.repo_info = []
-        
+
         calc.severity_scores = ['N/A']
         expected_statuses = []
         calculated_all_statuses = calc.all_statuses()
