@@ -14,12 +14,13 @@ severity score dictionary = {'critical': 1, 'high': 0.8,'moderate': 0.5,'minor':
     File should look like this: <br>
         --- <br>
         token : 'yourToken'
-4. Open the terminal and create a virtual environment
-5. Activate virtual environment and run pip install -r requirements.txt in terminal
-6. Run python run_calc.py in terminal  <br>
-(Make sure that you are using Python 3)
+4. Add token and update repo and branch targets in configuration file
+5. Open the terminal and run docker compose up
+6. Run docker exec health_status_calculator-app-1 python /code/api/pass_data.py or go to http://127.0.0.1:8000/docs
+
 # How to configure for custom runs
-You can configure the program for custom runs by changing the config file
+Update pass_data or use http://127.0.0.1:8000/docs
+
 # Sample experiments
 
 ### https://github.com/brave/brave-browser
