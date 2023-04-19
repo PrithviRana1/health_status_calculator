@@ -2,8 +2,11 @@ from models import formula_params
 
 
 class Calc:
-    variables = formula_params.ForumulaParams()
-    variables.all_objs()
+    def __init__(self, data_list):
+        self.variables = formula_params.ForumulaParams(data_list)
+
+    def get_variables_all_objs(self):
+        self.variables.all_objs()
     # On occasion api returns severities
     # as moderate or low instead of medium and minor
     # Added those to the dict with the score
@@ -26,6 +29,7 @@ class Calc:
         return health_status
 
     def all_statuses(self):
+        self.get_variables_all_objs()
         self.get_severity_scores()
         statuses = ['N/A' if obj is None
                     else (self.get_health_status(obj, severity_score), info)

@@ -4,7 +4,8 @@ import datetime
 
 
 class GithubApi:
-    setup = config_loader.ConfigLoader()
+    def __init__(self, data_list):
+        self.setup = config_loader.ConfigLoader(data_list)
 
     def github_connector(self, obj):
         config = obj
@@ -13,6 +14,8 @@ class GithubApi:
                    'X-GitHub-Api-Version': config['apiV'],
                    'Authorization': 'Bearer ' + config['token']}
         config['datetime'] = datetime.datetime.now()
+        del config['token']
+
         return requests.get(url, headers=headers), config
 
     def connections(self):

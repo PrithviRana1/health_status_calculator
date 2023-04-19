@@ -28,7 +28,7 @@ class TestDB(unittest.TestCase):
 
     @patch.object(calculation.Calc, 'all_statuses')
     def test_postgres_container(self, mock):
-        obj = calculation.Calc()
+        obj = calculation.Calc([])
         mock.return_value = [(0, {'owner': 'testO', 'repo': 'testR',
                                   'base': 'testB', 'head':
                                   'testH', 'apiV': '2022-11-28',

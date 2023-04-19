@@ -5,16 +5,20 @@ from models import github_api
 
 
 class ForumulaParams():
-    api = github_api.GithubApi()
-    api.connections()
+    def __init__(self, data_list):
+        self.api = github_api.GithubApi(data_list)
 
-    dependency_objs = api.response
+    def get_dependency_objs(self):
+        self.api.connections()
+        dependency_objs = self.api.response
+        return dependency_objs
 
     def all_objs(self):
+        dependency_objs = self.get_dependency_objs()
         self.response = [self.collect(json.loads(obj[0].text))
-                         for obj in self.dependency_objs]
+                         for obj in dependency_objs]
 
-        self.repo_info = [obj[1] for obj in self.dependency_objs]
+        self.repo_info = [obj[1] for obj in dependency_objs]
 
     def collect(self, obj):
         num_of_dependencies = len(obj)

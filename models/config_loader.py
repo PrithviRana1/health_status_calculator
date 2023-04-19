@@ -1,16 +1,11 @@
-import yaml
 import re
-import os
 import logging
 
 
 class ConfigLoader:
-    def config_params(self):
-        path = os.path.join('config', 'configuration.yaml')
-        f = open(path, "r")
-        config = list(yaml.safe_load_all(f))
-        f.close()
-        return config
+
+    def __init__(self, data_list):
+        self.data_list = data_list
 
     def validate(self, obj):
         config = obj
@@ -76,7 +71,7 @@ class ConfigLoader:
                          + " format application/vnd.github+param[+json]\n")
 
     def config_objects(self):
-        objects = self.config_params()
+        objects = self.data_list
         for obj in objects:
             self.validate(obj)
         return objects

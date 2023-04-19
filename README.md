@@ -44,7 +44,7 @@ repo : spring-framework
 1.
 base : 3.0.x <br>
 head : 3.1.x <br>
-health_status = 0.0007328075213192672
+health_status = 0.0006205450990727045
 
 
 2.
