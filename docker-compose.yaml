@@ -4,8 +4,9 @@ services:
     build: .
     ports:
       - '8000:8000'
+    restart: always
     volumes:
-      - .:/health_status_calculator
+      - .:/code
     depends_on:
       - database
     networks:
@@ -20,7 +21,6 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-
     networks:
       - mynetwork
 
