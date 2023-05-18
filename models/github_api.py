@@ -4,7 +4,6 @@ from models import config_loader
 import datetime
 
 
-
 class GithubApi:
     def __init__(self, data_list):
         self.setup = config_loader.ConfigLoader(data_list)
