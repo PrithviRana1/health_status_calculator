@@ -3,19 +3,20 @@ import os
 import yaml
 
 
-config_dir = '/config'
-
+config_dir = '/etc/app-config/'
 config = []
 
 for filename in os.listdir(config_dir):
     filepath = os.path.join(config_dir, filename)
-    with open(filepath, 'r') as f:
-        data = yaml.load(f, Loader=yaml.Loader)
-        config.append(data)
+
+    if os.path.isfile(filepath) and filename.endswith('.yaml'):  # Filter for YAML files
+        with open(filepath, 'r') as f:
+            data = yaml.safe_load(f)
+            config.append(data)
 
 config_list = {"data_list": config}
-
-response = requests.post("http://localhost:8000", json=config_list, headers={"Content-Type": "application/json"}) # noqa
+response = requests.post("http://localhost:8000", json=config_list, headers={"Content-Type": "application/json"})
 
 print(response.status_code)
+print(response.text)
 print(response.json())

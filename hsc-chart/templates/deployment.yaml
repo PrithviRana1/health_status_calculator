@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hsc-chart.fullname" . }}
+  labels:
+    app: {{ include "hsc-chart.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "hsc-chart.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "hsc-chart.name" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        env:
+        - name: ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: access-token
+              key: access-token
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: postgres-password
+        - name: DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: database
+        - name: HOST
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: host
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: port
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ (index .Values.pod.container.ports 0).containerPort }}
+        volumeMounts:
+          - name: app-config-volume
+            mountPath: /etc/app-config
+            readOnly: true
+          - name: postgres-config-volume
+            mountPath: /etc/postgres-config
+            readOnly: true
+        
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: {{ .Values.appConfigmap.name }}
+      - name: postgres-config-volume
+        configMap:
+          name: {{ .Values.postgresConfigmap.name }}
