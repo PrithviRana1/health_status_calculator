@@ -48,6 +48,11 @@ spec:
             configMapKeyRef:
               name: postgres-config
               key: port
+        - name: APP_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: appHost
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ (index .Values.pod.container.ports 0).containerPort }}

@@ -40,6 +40,12 @@ spec:
           configMapKeyRef:
             name: postgres-config
             key: port
+      - name: APP_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: app-config
+            key: appHost
+
 
 
 

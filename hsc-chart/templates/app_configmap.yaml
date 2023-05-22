@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.appConfigmap.name }}
 data:
+  appHost: 'http://localhost:8000'
   brave.yaml: |
    owner: 'brave'
    repo: 'brave-browser'

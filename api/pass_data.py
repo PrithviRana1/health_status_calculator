@@ -15,7 +15,8 @@ for filename in os.listdir(config_dir):
             config.append(data)
 
 config_list = {"data_list": config}
-response = requests.post("http://localhost:8000", json=config_list, headers={"Content-Type": "application/json"}) # noqa
+host = os.environ.get('APP_HOST')
+response = requests.post(host, json=config_list, headers={"Content-Type": "application/json"}) # noqa
 
 print(response.status_code)
 print(response.text)
