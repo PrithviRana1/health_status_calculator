@@ -1,0 +1,10 @@
+if you have issues with authentication failing while trying to login to postgres terminal despite using correct username and password
+try deleting pvc, uninstall chart and re-install. 
+
+Refer to this link:
+https://github.com/bitnami/charts/issues/2061
+
+kubectl exec -it <app-pod-name> -- bash -c "python /code/api/pass_data.py" to run app
+
+kubectl exec -it hsc-postgresql-0 -- bash to access postgres instance 
+psql -U postgres to enter database terminal

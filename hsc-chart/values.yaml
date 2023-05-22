@@ -1,0 +1,78 @@
+postgresConfigmap:
+  name: postgres-config
+  username: postgres
+  password: postpass
+  database: healthdb
+  host: hsc-postgresql
+  port: 5432
+
+dependency:
+  postgres:
+    enabled: true
+
+
+postgresql:
+  image:
+    debug: true
+  primary:
+    initdb:
+      scripts:
+        01_init_script.sql: |  
+          CREATE DATABASE healthdb;
+
+        02_init_script.sql: |
+          \c healthdb;
+          CREATE TABLE healthStatus (repo_owner VARCHAR (50) NOT NULL, 
+                            repo VARCHAR (50) NOT NULL, 
+                            base VARCHAR (50) NOT NULL, 
+                            head VARCHAR(50) NOT NULL, 
+                            health_status DECIMAL, 
+                            date_time TIMESTAMP NOT NULL);
+    user: postgres
+    password: postpass
+
+service:
+  type: ClusterIP
+  port: 8080
+
+global:
+  postgresql:
+    auth:
+      postgresPassword: postpass
+      
+
+
+    service:
+      ports:
+        postgresql: 5432
+
+pod:
+  name: hsc
+  container:
+    name: health-status-calculator-app
+    image: prithvirana/training:v33
+    ports:
+      - containerPort: 80
+  serviceAccount:
+    name: app-service-account
+
+
+appConfigmap:
+  name: app-config
+
+secret:
+  name: access-token
+
+deployment:
+  name: hsc-deployment
+  labels:
+    app: hsc 
+
+replicaCount: 1
+
+image:
+  repository: prithvirana/training
+  tag: v33
+  pullPolicy: IfNotPresent
+
+

@@ -14,7 +14,6 @@ class DataItem(BaseModel):
     head: str
     apiV: str
     accept: str
-    token: str
 
 
 class DataList(BaseModel):

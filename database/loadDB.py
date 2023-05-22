@@ -6,7 +6,7 @@ class DB:
         self.conn_obj = connection.Connect()
 
     def load(self, status):
-        conn = self.conn_obj.conn
+        conn = self.conn_obj.connect_db()
 
         # Define the values to be inserted
         values = (status[1]['owner'], status[1]['repo'], status[1]['base'],

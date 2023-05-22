@@ -46,12 +46,6 @@ class ConfigLoader:
             logger.debug("Head should be a string\n")
 
         try:
-            if not isinstance(config["token"], str):
-                raise TypeError
-        except TypeError:
-            logger.debug("Token should be a string\n")
-
-        try:
             pattern = re.compile(r"^\d{4}-\d{2}-\d{2}$", re.IGNORECASE)
             match = re.match(pattern, config["apiV"])
             if match is None:
