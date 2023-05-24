@@ -50,7 +50,7 @@ pod:
   name: hsc
   container:
     name: health-status-calculator-app
-    image: prithvirana/training:v36
+    image: prithvirana/training:v38
     ports:
       - containerPort: 80
   serviceAccount:
@@ -72,7 +72,7 @@ replicaCount: 1
 
 image:
   repository: prithvirana/training
-  tag: v36
+  tag: v38
   pullPolicy: IfNotPresent
 
 
