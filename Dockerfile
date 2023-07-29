@@ -1,4 +1,4 @@
-FROM python:3.11.3
+FROM python:3.12.0b4
 RUN mkdir /code 
 COPY . /code
 COPY pyproject.toml /code
